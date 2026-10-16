@@ -60,12 +60,12 @@ label.tg{display:flex;gap:8px;align-items:center;font-size:13px;cursor:pointer}
 .corner .brand i{font-style:normal;font-weight:500;color:#222}
 .corner .g5{font-size:62px;font-weight:800;font-style:italic;margin-top:4px;color:#e4002b}
 .corner .g5 span{color:#2d7ff9}
-.headline{font-size:104px;font-weight:800;line-height:1.08;text-align:center;letter-spacing:-1px;max-width:960px;word-break:break-word}
+.headline{white-space:pre-line;font-size:104px;font-weight:800;line-height:1.08;text-align:center;letter-spacing:-1px;max-width:960px;word-break:break-word}
 .sub{font-size:44px;font-weight:600;text-align:center;line-height:1.25;max-width:940px}
 .bg-night .sub{color:#fff}
-.card{width:880px;background:rgba(255,255,255,.88);border-radius:36px;padding:44px 50px 50px;display:flex;flex-direction:column;gap:26px;
-  box-shadow:0 18px 50px rgba(160,20,70,.14);border:2px solid rgba(255,255,255,.95)}
-.bg-night .card{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);box-shadow:none}
+.card{width:880px;background:#fffafb;border-radius:36px;padding:44px 50px 50px;display:flex;flex-direction:column;gap:26px;
+  border:3px solid #ffd0dc}
+.bg-night .card{background:#3a1650;border-color:#5a2c74;box-shadow:none}
 .item{position:relative;text-align:center}
 .model{font-size:70px;font-weight:700;line-height:1.1;color:#111}
 .detail{font-size:44px;font-weight:500;line-height:1.3;color:#222;margin-top:4px}
@@ -122,11 +122,15 @@ label.tg{display:flex;gap:8px;align-items:center;font-size:13px;cursor:pointer}
     <div class="group">
       <h3>เทมเพลต</h3>
       <select id="tpl" aria-label="เลือกเทมเพลต">
-        <option value="ready">พร้อมส่ง…iPhone 17 Series</option>
-        <option value="color">มาแล้ว…สีลูกคุณ</option>
-        <option value="run">วิ่งได้…วิ่ง!!!</option>
-        <option value="serve">วิ่งได้วิ่ง…พร้อมเสิร์ฟ (3 สาขา)</option>
-        <option value="date">นับถอยหลังวันเปิดจอง</option>
+        <option value="0">ของแรร์เข้าแล้ว... ช้าหมดอดนะแม่!</option>
+        <option value="1">ไม่ต้องรอพรี... มีของพร้อมส่งรัวๆ</option>
+        <option value="2">สับเท้าให้ไว... สต๊อกแน่นพร้อมจบ</option>
+        <option value="3">กำเงินมาเลย... เครื่องพร้อมหิ้วกลับ</option>
+        <option value="4">ตัวตึงมาแล้ว... สต๊อกพร้อมสับ!</option>
+        <option value="5">มีจำกัด... ใครไวกว่าคนนั้นได้</option>
+        <option value="6">ของเข้าแล้ว... ทักแชทแตกแน่นอน</option>
+        <option value="7">แรร์ไอเทม... พร้อมจบทุกคิว</option>
+        <option value="8">สต๊อกเข้าใหม่... ไม่สอยถือว่าพลาด!</option>
       </select>
     </div>
 
@@ -220,27 +224,15 @@ const STOPS=['#ff0a0a','#e6007e','#c21be0','#2d7ff9'];
 const SW=[['#111111','ดำ'],['#e4002b','แดงทรู'],['#e6007e','ชมพู'],['#8a2be2','ม่วง'],['#2d7ff9','ฟ้าทรู'],
   ['#1f3a7a','Deep Blue'],['#f26b1d','Cosmic Orange'],['#7a1f3d','Burgundy'],['#9aa4ae','Silver'],['#a9c3d6','Glacier'],['#2e9e44','เขียว'],['#ffffff','ขาว']];
 
-const T={
- ready:{h:'พร้อมส่ง…ทักเลย',s:'',items:[
-   ['iPhone 17','256 GB : ครบทุกสี'],
-   ['iPhone 17 Pro','256 GB : <span style="color:#1f3a7a">Deep Blue</span> / <span style="color:#f26b1d">Cosmic Orange</span>'],
-   ['iPhone 17 Pro Max','256 GB : <span style="color:#f26b1d">Cosmic Orange</span>']],
-   p:'Walk-in',b:'ที่ True Shop เซ็นทรัลลาดพร้าว ชั้น 2',f:''},
- color:{h:'มาแล้ววว…สีลูกคุณ',s:'',items:[
-   ['iPhone 18 Pro Max','<span style="color:#9aa4ae">256 Glacier</span> / <span style="color:#8b939c"><b>Silver</b></span><br><span style="color:#9aa4ae">512 Glacier</span> / Black / <span style="color:#7a1f3d"><b>Burgundy</b></span>']],
-   p:'Walk-in',b:'ที่ True Shop เซ็นทรัลลาดพร้าว ชั้น 2',f:''},
- run:{h:'วิ่งได้…วิ่ง!!!',s:'',items:[
-   ['iPhone 18 Pro','ทุกความจุ มีครบทุกสี'],
-   ['iPhone 18 Pro Max','Black / <span style="color:#7a1f3d"><b>Burgundy</b></span>']],
-   p:'Walk-in',b:'ที่ True Shop เซ็นทรัลลาดพร้าว ชั้น 2',f:''},
- serve:{h:'วิ่งได้วิ่ง…พร้อมเสิร์ฟ',s:'',items:[
-   ['iPhone 17 Pro Max','256GB | <span style="color:#f26b1d">สีส้ม</span>'],
-   ['iPhone 18 Pro','ครบทุกสี']],
-   p:'Walk-in 3 สาขา',b:'ที่ True Shop สยาม | True Shop เซ็นทรัลเวิลด์<br>True Shop เซ็นทรัลลาดพร้าว',f:'พิเศษเฉพาะลูกค้าทรูดีแทค'},
- date:{h:'16.10.69',s:'ทีมรอ iPhone Duo ยกมือขึ้น',items:[
-   ['เตรียมสั่งจองล่วงหน้า','iPhone Duo ที่คุ้มครบกับทรูดีแทค']],
-   p:'16 ต.ค. 69 · 19.00 น.',b:'',f:''}
-};
+const SETS=[
+ [['iPhone 17','256 GB : ครบทุกสี'],['iPhone 17 Pro','256 GB : <span style="color:#1f3a7a">Deep Blue</span> / <span style="color:#f26b1d">Cosmic Orange</span>'],['iPhone 17 Pro Max','256 GB : <span style="color:#f26b1d">Cosmic Orange</span>']],
+ [['iPhone 18 Pro','ทุกความจุ มีครบทุกสี'],['iPhone 18 Pro Max','Black / <span style="color:#7a1f3d"><b>Burgundy</b></span>']],
+ [['iPhone 18 Pro Max','<span style="color:#9aa4ae">256 Glacier</span> / <span style="color:#8b939c"><b>Silver</b></span><br><span style="color:#9aa4ae">512 Glacier</span> / Black / <span style="color:#7a1f3d"><b>Burgundy</b></span>']],
+ [['iPhone 17 Pro Max','256GB | <span style="color:#f26b1d">สีส้ม</span>'],['iPhone 18 Pro','ครบทุกสี']]
+];
+const PHR=["ของแรร์เข้าแล้ว... ช้าหมดอดนะแม่!", "ไม่ต้องรอพรี... มีของพร้อมส่งรัวๆ", "สับเท้าให้ไว... สต๊อกแน่นพร้อมจบ", "กำเงินมาเลย... เครื่องพร้อมหิ้วกลับ", "ตัวตึงมาแล้ว... สต๊อกพร้อมสับ!", "มีจำกัด... ใครไวกว่าคนนั้นได้", "ของเข้าแล้ว... ทักแชทแตกแน่นอน", "แรร์ไอเทม... พร้อมจบทุกคิว", "สต๊อกเข้าใหม่... ไม่สอยถือว่าพลาด!"];
+const T=PHR.map((h,i)=>({h:h.replace(/\.\.\.\s*/,'...\n'),s:'',items:SETS[i%SETS.length],p:'Walk-in',b:'ที่ True Shop เซ็นทรัลลาดพร้าว ชั้น 2',f:''}));
+
 
 let headRaw='', hSize=104, mDelta=0;
 
@@ -297,7 +289,7 @@ SW.forEach(([c,n])=>{const b=document.createElement('button');b.type='button';b.
 $('#bBold').onclick=()=>{document.execCommand('bold');save()};
 $('#bClear').onclick=()=>{document.execCommand('removeFormat');save()};
 
-$('#tpl').onchange=e=>{load({...T[e.target.value],bg:state().bg,r:state().r,hSize:e.target.value==='date'?150:104});save();fit()};
+$('#tpl').onchange=e=>{load({...T[e.target.value],bg:state().bg,r:state().r,hSize:92});save();fit()};
 $('#grad').onchange=()=>{paintHead();save()};
 document.querySelectorAll('[data-hs]').forEach(b=>b.onclick=()=>{hSize=Math.max(48,Math.min(200,hSize+ +b.dataset.hs));paintHead();save()});
 document.querySelectorAll('[data-ms]').forEach(b=>b.onclick=()=>{mDelta=Math.max(-30,Math.min(30,mDelta+ +b.dataset.ms));applySizes();save()});
@@ -339,7 +331,7 @@ $('#mClose').onclick=()=>{$('#modal').hidden=true};
 
 /* boot */
 let saved=null;try{saved=JSON.parse(localStorage.getItem('tsp-draft'))}catch(e){}
-load(saved&&saved.items?saved:T.ready);
+load(saved&&saved.items?saved:{...T[0],hSize:92});
 document.fonts&&document.fonts.ready.then(()=>{paintHead();fit()});
 fit();
 </script>
